@@ -28,8 +28,8 @@ def chat():
     if "historico" not in session:
         session['historico'] = []
 
-    session['historico'].append("Você: " + pergunta)
-    session['historico'].append("IA: " + response.text)
+    session['historico'].append({"autor": "usuario", "texto": pergunta})
+    session['historico'].append({"autor": "IA", "texto": response.text})
     return render_template("index.html", historico = session["historico"])
     
 if __name__ == '__main__':

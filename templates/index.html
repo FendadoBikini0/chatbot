@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
+    <style>
+    </style>
 </head>
 <body>
-    <h1>Chatbot</h1>
-    <div>
-        <ul>
-            {% for msg in historico %}
-                <li>{{ msg }}</li>
-            {% endfor %}
-        </ul>
+    <div class="principal">
+        <h1>Chatbot</h1>
+        <div class="historico">
+            <ul>
+                {% for msg in historico %}    
+                    {% if msg.autor == "usuario" %}
+                        <li class="balao-usuario">{{ msg.texto }}</li>
+                    {% else %}
+                        <li class="balao-IA">{{ msg.texto }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <form action="/chat" method="post">
+            <input type="text" name="mensagem" placeholder="Digite sua mensagem...">
+            <button type= "submit">Enviar</button>
+        </form>
     </div>
-    <form action="/chat" method="post">
-        <input type="text" name="mensagem" placeholder="Digite sua mensagem...">
-        <button type= "submit">Enviar</button>
-    </form>
 </body>
 </html>
