@@ -5,11 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <style>
+        body{
+            font-family: 'Times New Roman', Times, serif;
+            color: aliceblue;
+            background-color: #191919;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+        h1{
+            text-align: center;
+        }
+        .principal{
+            width: 600px;
+            background-color: transparent;
+            padding: 20px;
+            border-right: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;   
+        }
+        .historico{
+            width: 100%;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background-color: transparent;
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto; /*adiciona barra de rolagem quando necessário*/
+        }
+        .historico ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .balao-usuario{
+            background-color: #181818;
+            color: white;
+            padding: 10px;
+            border: 1px solid #4e4d4d;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            margin-left: auto; /*alinha à direita*/
+                align-self: flex-end; /*alinha à direita*/
+            width: fit-content; /* Ajusta largura ao conteúdo */
+        }
+        .balao-IA{
+            background-color: #444444;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            align-self: flex-start; /*alinha à esquerda*/
+            width: fit-content; /* Ajusta largura ao conteúdo */
+        }
+        input[type="text"]{
+            background-color: rgb(41, 41, 41);
+            color: white;
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+        }
+        button{
+            font-family: monospace;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: linear-gradient(45deg, #953900, #f06e3e);
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
+    <h1>Chatbot</h1>
     <div class="principal">
-        <h1>Chatbot</h1>
         <div class="historico">
             <ul>
                 {% for msg in historico %}    
@@ -21,10 +104,11 @@
                 {% endfor %}
             </ul>
         </div>
+    </div>    
         <form action="/chat" method="post">
-            <input type="text" name="mensagem" placeholder="Digite sua mensagem...">
+            <input type="text" name="mensagem" placeholder="Responder...">
             <button type= "submit">Enviar</button>
         </form>
-    </div>
+    
 </body>
 </html>
