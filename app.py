@@ -18,18 +18,27 @@ def inicio():
 @app.route('/chat', methods=['POST'])
 def chat():
     pergunta = request.form['mensagem']
-    response = client.models.generate_content(
-    model = "gemini-3-flash-preview",
-    contents = pergunta,
-    config = types.GenerateContentConfig(
-        system_instruction = "Sempre responda em português, seja breve e educado nas respostas, se a pergunta for em outro idioma, responda que você só entende em português."
-    )
-    )
     if "historico" not in session:
         session['historico'] = []
 
+    if "contexto" not in session:
+        session['contexto'] = []
+
+    # create chat with model and existing context
+    chat = client.chats.create(
+        model="gemini-3-flash-preview",
+        history=session['contexto']
+    )
+
+    # send the user's message and get response
+    response = chat.send_message(pergunta)
+
+
     session['historico'].append({"autor": "usuario", "texto": pergunta})
     session['historico'].append({"autor": "IA", "texto": response.text})
+    session['contexto'].append({"role": "user", "parts": [{"text": pergunta}]})
+    session['contexto'].append({"role": "model", "parts": [{"text": response.text}]})
+    session.modified = True
     return render_template("index.html", historico = session["historico"])
     
 if __name__ == '__main__':
